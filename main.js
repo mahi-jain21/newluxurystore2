@@ -4,23 +4,33 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  // 1. Page Load Progress Simulation
+  // Register GSAP ScrollTrigger Plugin
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. Page Load Progress Simulation with GSAP
   const loaderBar = document.getElementById('page-loader');
   if (loaderBar) {
-    loaderBar.style.width = '100%';
-    setTimeout(() => {
-      loaderBar.style.opacity = '0';
-      setTimeout(() => {
-        loaderBar.style.display = 'none';
-      }, 300);
-    }, 600);
+    gsap.to(loaderBar, {
+      width: '100%',
+      duration: 0.6,
+      ease: 'power1.inOut',
+      onComplete: () => {
+        gsap.to(loaderBar, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            loaderBar.style.display = 'none';
+          }
+        });
+      }
+    });
   }
 
   // Detect Mobile / Touch Device (Disable Custom Cursor & Blob)
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
   const body = document.body;
 
-  // Catalog Database for Spotlight Search
+  // Catalog Database for Spotlight Search (Expanded to 12 items)
   const catalogProducts = [
     { id: 'p1', name: 'Cashmere Mock Neck', price: 890, category: 'Knitwear', img: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=600&auto=format&fit=crop', variant: 'Charcoal Grey' },
     { id: 'p2', name: 'Sartorial Amber Oud', price: 195, category: 'Apothecary', img: 'assets/perfume_front.png', variant: '50ml Perfume' },
@@ -29,7 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'p5', name: 'Castagna Suede Loafers', price: 780, category: 'Footwear', img: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=600&auto=format&fit=crop', variant: 'Castagna Brown' },
     { id: 'p6', name: 'Oatmeal Cashmere Blanket', price: 1250, category: 'Living', img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop', variant: 'Oatmeal Melange' },
     { id: 'p7', name: 'Aura Brass Candle', price: 110, category: 'Apothecary', img: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=600&auto=format&fit=crop', variant: 'Sandalwood & Fig' },
-    { id: 'p8', name: 'Wool Pleated Trouser', price: 620, category: 'Apparel', img: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop', variant: 'Off-White Wool' }
+    { id: 'p8', name: 'Wool Pleated Trouser', price: 620, category: 'Apparel', img: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop', variant: 'Off-White Wool' },
+    { id: 'p9', name: 'Vicuña Double Overcoat', price: 4890, category: 'Outerwear', img: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?q=80&w=600&auto=format&fit=crop', variant: 'Camel Melange' },
+    { id: 'p10', name: 'Viceroy Silk Scarf', price: 420, category: 'Accessories', img: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop', variant: 'Sartorial Silk Paisley' },
+    { id: 'p11', name: 'Suede Field Jacket', price: 2250, category: 'Outerwear', img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=600&auto=format&fit=crop', variant: 'Espresso Suede' },
+    { id: 'p12', name: 'Atelier Leather Slides', price: 680, category: 'Footwear', img: 'https://images.unsplash.com/photo-1603808033192-082d6f74b30d?q=80&w=600&auto=format&fit=crop', variant: 'Tuscan Tan Calfskin' }
   ];
 
   // Initialize Custom Cursor & Blob (Desktop only)
@@ -48,34 +62,67 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!isTouchDevice && dotEl && ringEl && blobEl) {
     body.classList.add('has-custom-cursor');
 
+    // Use GSAP percent centering
+    gsap.set(dotEl, { xPercent: -50, yPercent: -50 });
+    gsap.set(ringEl, { xPercent: -50, yPercent: -50 });
+    gsap.set(blobEl, { xPercent: -50, yPercent: -50 });
+
+    // Use GSAP quickSetters for extreme hardware acceleration
+    const setDotX = gsap.quickSetter(dotEl, "x", "px");
+    const setDotY = gsap.quickSetter(dotEl, "y", "px");
+    const setRingX = gsap.quickSetter(ringEl, "x", "px");
+    const setRingY = gsap.quickSetter(ringEl, "y", "px");
+    const setBlobX = gsap.quickSetter(blobEl, "x", "px");
+    const setBlobY = gsap.quickSetter(blobEl, "y", "px");
+
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+
+      // Immediately follow dot
+      gsap.to(cursorDot, {
+        x: mouse.x,
+        y: mouse.y,
+        duration: 0.1,
+        ease: "power2.out",
+        onUpdate: () => {
+          setDotX(cursorDot.x);
+          setDotY(cursorDot.y);
+        }
+      });
+
+      // Ring lag
+      gsap.to(cursorRing, {
+        x: mouse.x,
+        y: mouse.y,
+        duration: 0.35,
+        ease: "power2.out",
+        onUpdate: () => {
+          setRingX(cursorRing.x);
+          setRingY(cursorRing.y);
+        }
+      });
+
+      // Blob lag
+      gsap.to(cursorBlob, {
+        x: mouse.x,
+        y: mouse.y,
+        duration: 0.7,
+        ease: "power3.out",
+        onUpdate: () => {
+          setBlobX(cursorBlob.x);
+          setBlobY(cursorBlob.y);
+        }
+      });
     });
 
-    const lerp = (start, end, amt) => (1 - amt) * start + amt * end;
-
-    const updateCursor = () => {
-      cursorDot.x = lerp(cursorDot.x, mouse.x, 0.4);
-      cursorDot.y = lerp(cursorDot.y, mouse.y, 0.4);
-      dotEl.style.transform = `translate3d(${cursorDot.x}px, ${cursorDot.y}px, 0)`;
-
-      cursorRing.x = lerp(cursorRing.x, mouse.x, 0.15);
-      cursorRing.y = lerp(cursorRing.y, mouse.y, 0.15);
-      ringEl.style.transform = `translate3d(${cursorRing.x}px, ${cursorRing.y}px, 0)`;
-
-      cursorBlob.x = lerp(cursorBlob.x, mouse.x, 0.08);
-      cursorBlob.y = lerp(cursorBlob.y, mouse.y, 0.08);
-      blobEl.style.transform = `translate3d(${cursorBlob.x}px, ${cursorBlob.y}px, 0)`;
-
+    // Morphing displacement filter seed on GSAP ticker
+    gsap.ticker.add(() => {
       if (displacementFilter) {
         seedVal += 0.04;
         displacementFilter.setAttribute('seed', Math.floor(seedVal % 1000));
       }
-
-      requestAnimationFrame(updateCursor);
-    };
-    requestAnimationFrame(updateCursor);
+    });
 
     blobEl.style.animation = 'blob-morph 12s infinite ease-in-out alternate';
 
@@ -128,22 +175,35 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================================================
-  // 2. Magnetic Button Effects (Pure kinetic physics on hover)
+  // 2. Magnetic Button Effects (GSAP spring physical attraction)
   // ==========================================================================
   if (!isTouchDevice) {
     const initMagneticButtons = () => {
-      const magneticTargets = document.querySelectorAll('.interactive-cta, .btn, .nav-action-btn, .nav-logo');
+      const magneticTargets = document.querySelectorAll('.interactive-cta, .btn, .nav-action-btn, .nav-logo, .nav-links a');
       
       magneticTargets.forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
           const rect = btn.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
           const y = e.clientY - rect.top - rect.height / 2;
-          btn.style.transform = `translate3d(${x * 0.35}px, ${y * 0.35}px, 0) scale(0.97)`;
+          
+          gsap.to(btn, {
+            x: x * 0.45,
+            y: y * 0.45,
+            duration: 0.3,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
         });
 
         btn.addEventListener('mouseleave', () => {
-          btn.style.transform = 'translate3d(0px, 0px, 0px)';
+          gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.4)",
+            overwrite: "auto"
+          });
         });
       });
     };
@@ -151,103 +211,158 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 3. Intersection Observer: Scroll reveals & Heading reveals
+  // 3. GSAP ScrollTrigger: Scroll reveals & Heading reveals
   // ==========================================================================
   const heroSection = document.getElementById('chapter-01');
   if (heroSection) {
-    setTimeout(() => {
-      heroSection.classList.add('active-chapter');
-    }, 200);
+    gsap.to(heroSection, {
+      onStart: () => {
+        heroSection.classList.add('active-chapter');
+      }
+    });
   }
 
-  const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        if (entry.target.classList.contains('stats-bar-container')) {
-          triggerStatsCountUp();
+  // GSAP scroll reveals
+  const revealScrollItems = document.querySelectorAll('.scroll-reveal');
+  revealScrollItems.forEach(el => {
+    let onStartCallback = null;
+    if (el.classList.contains('stats-bar-container')) {
+      onStartCallback = () => triggerStatsCountUp();
+    }
+
+    gsap.fromTo(el, 
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 88%",
+          toggleActions: "play none none none",
+          onEnter: onStartCallback
         }
-        revealObserver.unobserve(entry.target);
       }
-    });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    );
   });
 
-  scrollRevealElements.forEach(el => revealObserver.observe(el));
-
-  const headingRevealElements = document.querySelectorAll('.heading-reveal-line');
-  const headingObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        headingObserver.unobserve(entry.target);
+  // GSAP heading reveals
+  const revealHeadings = document.querySelectorAll('.heading-reveal-line');
+  revealHeadings.forEach(heading => {
+    gsap.fromTo(heading,
+      { y: "100%", clipPath: "inset(0 0 100% 0)" },
+      {
+        y: "0%",
+        clipPath: "inset(0 0 0% 0)",
+        duration: 1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 92%",
+          toggleActions: "play none none none"
+        }
       }
-    });
-  }, {
-    threshold: 0.8
+    );
   });
-
-  headingRevealElements.forEach(heading => headingObserver.observe(heading));
 
   // ==========================================================================
-  // 4. Chapter Depth Shift & Navigation Underline Progress
+  // 4. Chapter Depth Shift & Navigation Underline Progress (GSAP ScrollTrigger)
   // ==========================================================================
   const chapters = document.querySelectorAll('.chapter');
   const navLinks = document.querySelectorAll('.nav-links a');
   const scrollProgress = document.getElementById('scroll-depth-progress');
 
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-    if (scrollProgress) {
-      scrollProgress.style.height = `${scrollPct}%`;
-    }
-
-    const headerNav = document.getElementById('main-nav');
-    if (headerNav) {
-      if (scrollTop > 60) {
-        headerNav.classList.add('scrolled');
-      } else {
-        headerNav.classList.remove('scrolled');
-      }
-    }
-
-    // Parallax story images
-    const scrollSpeedMultiplier = 0.15;
-    const storyImages = [
-      { id: 'parallax-img-1', el: document.getElementById('parallax-img-1') },
-      { id: 'parallax-img-2', el: document.getElementById('parallax-img-2') }
-    ];
-
-    storyImages.forEach(item => {
-      if (item.el) {
-        const rect = item.el.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        if (isInViewport) {
-          const img = item.el.querySelector('img');
-          if (img) {
-            const offset = (window.innerHeight / 2 - rect.top) * scrollSpeedMultiplier;
-            img.style.transform = `translate3d(0px, ${offset}px, 0px) scale(1.04)`;
-          }
-        }
+  // Scroll depth progress indicator with GSAP
+  if (scrollProgress) {
+    gsap.to(scrollProgress, {
+      height: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true
       }
     });
+  }
 
-    chapters.forEach(chapter => {
-      const rect = chapter.getBoundingClientRect();
-      if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-        if (!chapter.classList.contains('active-chapter')) {
+  // Header scrolled state
+  ScrollTrigger.create({
+    start: "top -60px",
+    onToggle: self => {
+      const headerNav = document.getElementById('main-nav');
+      if (headerNav) {
+        if (self.isActive) {
+          headerNav.classList.add('scrolled');
+        } else {
+          headerNav.classList.remove('scrolled');
+        }
+      }
+    }
+  });
+
+  // Parallax story images with GSAP ScrollTrigger
+  const storyImage1 = document.getElementById('parallax-img-1');
+  if (storyImage1) {
+    const img = storyImage1.querySelector('img');
+    if (img) {
+      gsap.fromTo(img, 
+        { y: "-10%", scale: 1.04 },
+        {
+          y: "10%",
+          scale: 1.04,
+          ease: "none",
+          scrollTrigger: {
+            trigger: storyImage1,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        }
+      );
+    }
+  }
+
+  const storyImage2 = document.getElementById('parallax-img-2');
+  if (storyImage2) {
+    const img = storyImage2.querySelector('img');
+    if (img) {
+      gsap.fromTo(img, 
+        { y: "-10%", scale: 1.04 },
+        {
+          y: "10%",
+          scale: 1.04,
+          ease: "none",
+          scrollTrigger: {
+            trigger: storyImage2,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        }
+      );
+    }
+  }
+
+  // Active Chapter detection
+  chapters.forEach(chapter => {
+    ScrollTrigger.create({
+      trigger: chapter,
+      start: "top 50%",
+      end: "bottom 50%",
+      onToggle: self => {
+        if (self.isActive) {
           chapters.forEach(c => c.classList.remove('active-chapter'));
           chapter.classList.add('active-chapter');
 
           const newDepth = chapter.getAttribute('data-depth');
           if (newDepth) {
-            body.style.backgroundColor = newDepth;
+            gsap.to(body, {
+              backgroundColor: newDepth,
+              duration: 0.8,
+              ease: "power2.out"
+            });
           }
 
           const currentId = chapter.getAttribute('id');
@@ -265,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Smooth scroll links hook (Explores, Chapter clicks)
+  // Smooth scroll links hook (Explores, Chapter clicks) using GSAP ScrollTo
   document.querySelectorAll('.scroll-to-link, .nav-logo, .nav-links a, .mobile-nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
@@ -274,9 +389,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetSection = document.querySelector(href);
         if (targetSection) {
           const offsetTop = targetSection.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
+          gsap.to(window, {
+            scrollTo: { y: offsetTop, autoKill: false },
+            duration: 1.2,
+            ease: "power3.inOut"
           });
         }
       }
@@ -284,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 5. Products Filter Tabs & Grid Staggered Swap
+  // 5. Products Filter Tabs & Grid Staggered Swap (GSAP crossfade & stagger)
   // ==========================================================================
   const filterTabs = document.querySelectorAll('.filter-tab');
   const productsGrid = document.getElementById('products-grid-element');
@@ -300,23 +416,112 @@ document.addEventListener('DOMContentLoaded', () => {
       const filterVal = tab.getAttribute('data-filter');
 
       if (productsGrid) {
-        productsGrid.classList.add('grid-crossfading');
+        const visibleCards = Array.from(productCards).filter(card => card.style.display !== 'none');
         
-        setTimeout(() => {
-          productCards.forEach((card) => {
-            const cardCats = card.getAttribute('data-categories').split(' ');
-            if (filterVal === 'all' || cardCats.includes(filterVal)) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
-          });
+        // Staggered fade out
+        gsap.to(visibleCards, {
+          opacity: 0,
+          scale: 0.95,
+          y: 15,
+          duration: 0.25,
+          stagger: 0.02,
+          ease: "power2.in",
+          onComplete: () => {
+            productCards.forEach((card) => {
+              const cardCats = card.getAttribute('data-categories').split(' ');
+              if (filterVal === 'all' || cardCats.includes(filterVal)) {
+                card.style.display = 'flex';
+                gsap.set(card, { opacity: 0, scale: 0.95, y: 15 });
+              } else {
+                card.style.display = 'none';
+              }
+            });
 
-          productsGrid.classList.remove('grid-crossfading');
-        }, 250);
+            // Recalculate ScrollTriggers in case layout heights changed
+            ScrollTrigger.refresh();
+
+            // Staggered fade in
+            const newVisibleCards = Array.from(productCards).filter(card => card.style.display !== 'none');
+            gsap.to(newVisibleCards, {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 0.4,
+              stagger: 0.03,
+              ease: "power2.out"
+            });
+          }
+        });
       }
     });
   });
+
+  // ==========================================================================
+  // 5B. GSAP 3D Hover Card Tilts & Add to Cart Binding
+  // ==========================================================================
+  const init3DCardTilts = () => {
+    const productCards3D = document.querySelectorAll('.product-card:not(.sold-out-card)');
+    productCards3D.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((centerY - y) / centerY) * 10; // Max 10 degrees
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        gsap.to(card, {
+          rotateX: rotateX,
+          rotateY: rotateY,
+          transformPerspective: 800,
+          scale: 1.02,
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4), 0 0 2px rgba(200, 169, 110, 0.2)",
+          borderColor: "rgba(200, 169, 110, 0.15)",
+          duration: 0.4,
+          ease: "power2.out",
+          overwrite: "auto"
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          boxShadow: "none",
+          borderColor: "",
+          duration: 0.6,
+          ease: "power2.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  };
+  init3DCardTilts();
+
+  const bindAddToCartButtons = () => {
+    const addBtns = document.querySelectorAll('.add-to-cart-btn');
+    addBtns.forEach(btn => {
+      btn.removeEventListener('click', handleAddToCartClick);
+      btn.addEventListener('click', handleAddToCartClick);
+    });
+  };
+
+  const handleAddToCartClick = (e) => {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const id = btn.getAttribute('data-id');
+    const name = btn.getAttribute('data-name');
+    const price = btn.getAttribute('data-price');
+    const img = btn.getAttribute('data-img');
+    const variant = btn.getAttribute('data-variant');
+    
+    addToCart({ id, name, price, img, variant });
+  };
+  bindAddToCartButtons();
 
   // ==========================================================================
   // 6. Stats Count-Up Animation
@@ -571,12 +776,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Wishlist drawer controls
+  let lastActiveElement = null;
   const wishlistOverlay = document.getElementById('wishlist-overlay-element');
   const wishlistDrawer = document.getElementById('wishlist-drawer-element');
   const wishlistTrigger = document.getElementById('wishlist-trigger');
   const wishlistClose = document.getElementById('wishlist-close-btn');
 
   const openWishlist = () => {
+    lastActiveElement = document.activeElement;
     wishlistOverlay.classList.add('open');
     wishlistDrawer.classList.add('open');
     wishlistDrawer.setAttribute('aria-hidden', 'false');
@@ -589,6 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wishlistDrawer.classList.remove('open');
     wishlistDrawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = 'auto';
+    if (lastActiveElement) lastActiveElement.focus();
   };
 
   if (wishlistTrigger) wishlistTrigger.addEventListener('click', openWishlist);
@@ -639,6 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openClientPortal = () => {
     if (clientOverlay && clientDrawer) {
+      lastActiveElement = document.activeElement;
       clientOverlay.classList.add('open');
       clientDrawer.classList.add('open');
       clientDrawer.setAttribute('aria-hidden', 'false');
@@ -653,6 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clientDrawer.classList.remove('open');
       clientDrawer.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = 'auto';
+      if (lastActiveElement) lastActiveElement.focus();
     }
   };
 
@@ -991,6 +1201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkoutCloseBtn = document.getElementById('checkout-success-close-btn');
 
   const openCart = () => {
+    lastActiveElement = document.activeElement;
     cartOverlay.classList.add('open');
     cartDrawer.classList.add('open');
     cartDrawer.setAttribute('aria-hidden', 'false');
@@ -1003,6 +1214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cartDrawer.classList.remove('open');
     cartDrawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = 'auto';
+    if (lastActiveElement) lastActiveElement.focus();
   };
 
   if (cartTrigger) cartTrigger.addEventListener('click', openCart);
@@ -1082,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const itemTotal = item.price * item.qty;
       subtotal += itemTotal;
       
-      const monogramSupports = ['p3', 'p4', 'p6'];
+      const monogramSupports = ['p3', 'p4', 'p6', 'p10'];
       const supportsMonogram = monogramSupports.includes(item.id);
       let monogramHTML = '';
       
@@ -1504,21 +1716,30 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data) {
         const card = document.querySelector('.material-content-card');
         if (card) {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(8px)';
-          card.style.transition = 'opacity 250ms ease, transform 250ms ease';
+          // Fade out and translate down slightly
+          gsap.to(card, {
+            opacity: 0,
+            y: 12,
+            duration: 0.25,
+            ease: "power2.in",
+            onComplete: () => {
+              // Update content properties
+              if (materialImg) materialImg.setAttribute('src', data.img);
+              if (materialTitle) materialTitle.innerText = data.title;
+              if (materialOrigin) materialOrigin.innerText = data.origin;
+              if (materialDesc) materialDesc.innerText = data.desc;
+              if (materialSpec1) materialSpec1.innerText = data.spec1;
+              if (materialSpec2) materialSpec2.innerText = data.spec2;
 
-          setTimeout(() => {
-            if (materialImg) materialImg.setAttribute('src', data.img);
-            if (materialTitle) materialTitle.innerText = data.title;
-            if (materialOrigin) materialOrigin.innerText = data.origin;
-            if (materialDesc) materialDesc.innerText = data.desc;
-            if (materialSpec1) materialSpec1.innerText = data.spec1;
-            if (materialSpec2) materialSpec2.innerText = data.spec2;
-
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 250);
+              // Fade in and slide up
+              gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: "power2.out"
+              });
+            }
+          });
         }
       }
     });

@@ -132,9 +132,21 @@ h1, h2, h3, h4, h5, h6 {
 .hero-headline {
   font-family: "Cormorant Garamond", serif;
   font-weight: 300;
-  font-size: clamp(36px, 5.2vw, 76px); /* Prevents line wrapping and width cut-offs on laptops */
+  font-size: clamp(38px, 5.2vw, 76px);
   letter-spacing: -0.02em;
   line-height: 0.95;
+}
+
+@media (max-width: 1600px) {
+  .hero-headline {
+    font-size: clamp(32px, 4.5vw, 64px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero-headline {
+    font-size: clamp(28px, 4vw, 54px);
+  }
 }
 
 .chapter-label {
@@ -402,7 +414,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
-  z-index: 999;
+  z-index: 100000;
   transform: translate(-50%, -50%);
   will-change: transform;
   display: none;
@@ -415,7 +427,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
-  z-index: 998;
+  z-index: 99999;
   opacity: 0.4;
   transform: translate(-50%, -50%);
   will-change: transform, width, height, opacity, background-color;
@@ -1077,7 +1089,7 @@ body.has-custom-cursor .cursor-blob {
   border: 1px solid var(--border);
   background-color: var(--bg-surface);
   padding: var(--space-xs);
-  transition: transform 400ms var(--ease-entry), border-color 400ms ease, box-shadow 400ms ease;
+  transition: border-color 400ms ease, box-shadow 400ms ease;
   will-change: transform;
 }
 
@@ -1108,7 +1120,6 @@ body.has-custom-cursor .cursor-blob {
 
 /* Igloo Shimmer Rim Glow and elevation offset on hover */
 .product-card:hover {
-  transform: translateY(-4px);
   border-color: var(--gold);
   box-shadow: 0 0 0 1px rgba(200, 169, 110, 0.4), 
               0 20px 60px rgba(200, 169, 110, 0.08);
