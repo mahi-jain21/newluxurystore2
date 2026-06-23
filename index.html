@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHEL | High-End Cashmere & Bespoke Accessories</title>
+  <meta name="description" content="Discover AETHEL, a world-class luxury atelier specializing in handcrafted cashmere, premium leather goods, and refined fragrances. Crafted in Milan.">
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta property="og:title" content="AETHEL | High-End Cashmere & Bespoke Accessories">
+  <meta property="og:description" content="Bespoke luxury outerwear, bags, and fragrances designed for the modern connoisseur. Crafted with intention in Italy.">
+  <meta property="og:type" content="website">
+  
+  <!-- Font Optimization (Preconnect & display swap) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  </noscript>
+
+  <link rel="stylesheet" href="index.css?v=1.1">
+</head>
+<body>
+
+  <!-- Page Loader Progress Bar -->
+  <div id="page-loader" class="page-load-progress-bar"></div>
+
+  <!-- Custom Cursor Elements (Desktop only) -->
+  <div class="custom-cursor-dot" id="cursor-dot"></div>
+  <div class="custom-cursor-ring" id="cursor-ring"></div>
+
+  <!-- Morphing Cursor Blob -->
+  <div class="cursor-blob-container">
+    <div class="cursor-blob" id="cursor-blob"></div>
+  </div>
+
+  <!-- Liquid displacement filter for WebGL-style fluid organic morphing -->
+  <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+    <defs>
+      <filter id="liquid-displacement">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" seed="1"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Scroll Progress Indicator (Right Side) -->
+  <div class="scroll-depth-tracker" id="scroll-depth-tracker">
+    <div class="scroll-depth-progress" id="scroll-depth-progress"></div>
+  </div>
+
+  <!-- ==========================================================================
+       CHAPTER 00 — NAVIGATION
+       ========================================================================== -->
+  <header class="header-nav" id="main-nav">
+    <div class="container nav-grid">
+      <!-- Left: Logo -->
+      <a href="#" class="nav-logo" id="nav-logo-btn">A E T H E L</a>
+
+      <!-- Center: Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#chapter-01" class="active">The Arrival</a></li>
+          <li><a href="#chapter-02">The Collection</a></li>
+          <li><a href="#chapter-03">The Craft</a></li>
+          <li><a href="#chapter-04">The Proof</a></li>
+          <li><a href="#chapter-05">Inner Circle</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right: Action Icons -->
+      <div class="nav-actions">
+        <button class="nav-action-btn" aria-label="Search Collection" id="search-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button class="nav-action-btn" aria-label="View Wishlist" id="wishlist-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="wishlist-count-badge" id="wishlist-badge-count">0</span>
+        </button>
+        <button class="nav-action-btn" aria-label="Open Shopping Cart" id="cart-trigger-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
+        </button>
+        <button class="nav-action-btn" aria-label="Account Settings" id="account-trigger" style="position: relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="active-user-indicator" id="user-logged-in-indicator" style="display: none;"></span>
+        </button>
+        <!-- Mobile Hamburger Button -->
+        <button class="hamburger-btn nav-action-btn" aria-label="Toggle Menu" id="mobile-menu-toggle">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Fullscreen Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="#chapter-01" class="mobile-nav-link">The Arrival</a></li>
+      <li><a href="#chapter-02" class="mobile-nav-link">The Collection</a></li>
+      <li><a href="#chapter-03" class="mobile-nav-link">The Craft</a></li>
+      <li><a href="#chapter-04" class="mobile-nav-link">The Proof</a></li>
+      <li><a href="#chapter-05" class="mobile-nav-link">Inner Circle</a></li>
+    </ul>
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: var(--space-md);">
+      <p class="chapter-label" style="font-size: 8px;">Studio Milan · Est. 2019</p>
+      <a href="mailto:concierge@aethel.com" class="body-text" style="text-decoration: underline;">concierge@aethel.com</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         CHAPTER 01 — THE ARRIVAL (Hero)
+         ========================================================================== -->
+    <section id="chapter-01" class="chapter hero-section active-chapter" data-chapter="01" data-depth="#080808">
+      <div class="hero-bg-container">
+        <img src="assets/hero_bg.png" alt="" class="hero-bg-image" fetchpriority="high">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <!-- Left content block -->
+        <div class="hero-text-block">
+          <p class="chapter-label hero-badge">Chapter 01 · The Arrival</p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-xs);">
+            <p class="label-caps hero-badge" style="color: var(--gold); font-size: 11px;">New Season Drop · 2025</p>
+            <div class="hero-headline">
+              <span class="hero-title-line"><h1>The Art of</h1></span>
+              <span class="hero-title-line"><h1>Quiet Luxury.</h1></span>
+              <span class="hero-title-line"><h1>Cashmere Knit.</h1></span>
+            </div>
+          </div>
+          <p class="body-text hero-body" style="max-width: 440px; margin-top: var(--space-xs);">
+            A singular expression of pure textile form and warmth. Hand-loomed in Italy from raw Mongolian cashmere. Crafted for generational endurance.
+          </p>
+          
+          <div class="hero-ctas" style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div class="hero-ctas-container">
+              <button class="btn btn-primary interactive-cta" id="hero-primary-cta">Shop The Drop</button>
+              <a href="#chapter-03" class="btn btn-secondary interactive-cta">Explore Story</a>
+            </div>
+            <!-- Urgency Strip -->
+            <div class="hero-urgency-strip">
+              <span class="urgency-dot"></span>
+              <span>Only 12 items remaining · Ships in 24hrs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right image block -->
+        <div class="hero-image-block">
+          <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image" style="will-change: transform;">
+            <img src="assets/hero_product.png" alt="Featured Cashmere Coat details" class="image-loaded" fetchpriority="high">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pulse Scroll Indicator -->
+      <div class="hero-scroll-indicator">
+        <p class="label-caps" style="font-size: 8px; color: var(--text-hint);">Scroll</p>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- BETWEEN CHAPTERS: INFINITE MARQUEE STRIP -->
+    <div class="marquee-container" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item">Handcrafted Materials <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Free Worldwide Shipping <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Limited Drops <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">30-Day Returns <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Certified Sustainable <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Est. 2019 <span class="marquee-separator">◆</span></div>
+        <!-- Duplicate for loop -->
+        <div class="marquee-item">Handcrafted Materials <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Free Worldwide Shipping <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Limited Drops <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">30-Day Returns <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Certified Sustainable <span class="marquee-separator">◆</span></div>
+        <div class="marquee-item">Est. 2019 <span class="marquee-separator">◆</span></div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         CHAPTER 02 — THE COLLECTION
+         ========================================================================== -->
+    <section id="chapter-02" class="chapter section-padding" data-chapter="02" data-depth="#090909" style="background-color: var(--bg-surface);">
+      <div class="container">
+        <p class="chapter-label" style="margin-bottom: var(--space-xs);">Chapter 02 · The Collection</p>
+        
+        <div class="collection-header-row">
+          <div class="heading-line-container">
+            <h2 class="section-heading heading-reveal-line">Bespoke Curation</h2>
+          </div>
+          <div style="display: flex; gap: var(--space-sm); align-items: center;">
+            <a href="#" class="text-link" id="size-advisor-trigger-btn" style="color: var(--gold); border-bottom: 1px dashed var(--gold); text-decoration: none;">Size Advisor</a>
+            <span style="color: var(--border);">|</span>
+            <a href="#" class="text-link" id="explore-all-btn">Explore All <span>→</span></a>
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <ul class="collection-filters">
+          <li><button class="filter-tab active" data-filter="all">All</button></li>
+          <li><button class="filter-tab" data-filter="new">New Arrivals</button></li>
+          <li><button class="filter-tab" data-filter="bestsellers">Bestsellers</button></li>
+          <li><button class="filter-tab" data-filter="limited">Limited</button></li>
+          <li><button class="filter-tab" data-filter="sale">Sale</button></li>
+        </ul>
+
+        <!-- Products Grid (4-column) -->
+        <div class="products-grid" id="products-grid-element">
+          
+          <!-- Product Card 1 (Unsplash cashmere sweater) -->
+          <article class="product-card scroll-reveal" data-categories="new all" data-id="p1">
+            <div class="product-image-container">
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p1">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=600&auto=format&fit=crop" alt="Cashmere Mock Neck Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=600&auto=format&fit=crop" alt="Cashmere Mock Neck Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p1" data-name="Cashmere Mock Neck" data-price="890" data-img="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=600&auto=format&fit=crop" data-variant="Charcoal Grey">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Knitwear</span>
+              <h3 class="product-name">Cashmere Mock Neck</h3>
+              <span class="product-price price-display">$890</span>
+            </div>
+          </article>
+
+          <!-- Product Card 2 (Generated Amber Perfume - Limited) -->
+          <article class="product-card scroll-reveal" data-categories="limited all bestsellers" data-id="p2">
+            <div class="product-image-container">
+              <!-- Scarcity tag -->
+              <div class="scarcity-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">LAST 3</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p2">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="assets/perfume_front.png" alt="Sartorial Amber Oud Bottle" class="product-image-primary image-loaded">
+                <img src="assets/perfume_back.png" alt="Sartorial Amber Oud Details" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p2" data-name="Sartorial Amber Oud" data-price="195" data-img="assets/perfume_front.png" data-variant="50ml Perfume">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Apothecary</span>
+              <h3 class="product-name">Sartorial Amber Oud</h3>
+              <span class="product-price price-display">$195</span>
+            </div>
+          </article>
+
+          <!-- Product Card 3 (Generated Leather Bag - Bestseller) -->
+          <article class="product-card scroll-reveal" data-categories="bestsellers all" data-id="p3">
+            <div class="product-image-container">
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p3">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="assets/bag_front.png" alt="Leather Weekend Duffle Front" class="product-image-primary image-loaded">
+                <img src="assets/bag_back.png" alt="Leather Weekend Duffle Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p3" data-name="Leather Weekend Duffle" data-price="1450" data-img="assets/bag_front.png" data-variant="Calfskin Brown">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Accessories</span>
+              <h3 class="product-name">Leather Weekend Duffle</h3>
+              <span class="product-price price-display">$1,450</span>
+            </div>
+          </article>
+
+          <!-- Product Card 4 (Unsplash Champagne Silk Lounge Robe - New) -->
+          <article class="product-card scroll-reveal" data-categories="new all" data-id="p4">
+            <div class="product-image-container">
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p4">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600&auto=format&fit=crop" alt="Champagne Silk Lounge Robe Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?q=80&w=600&auto=format&fit=crop" alt="Champagne Silk Lounge Robe Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p4" data-name="Champagne Silk Robe" data-price="980" data-img="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600&auto=format&fit=crop" data-variant="Champagne Gold">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Apparel</span>
+              <h3 class="product-name">Champagne Silk Robe</h3>
+              <span class="product-price price-display">$980</span>
+            </div>
+          </article>
+
+          <!-- Product Card 5 (Unsplash Castagna Suede Loafers - New) -->
+          <article class="product-card scroll-reveal" data-categories="new all" data-id="p5">
+            <div class="product-image-container">
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p5">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=600&auto=format&fit=crop" alt="Castagna Suede Loafers Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=600&auto=format&fit=crop" alt="Castagna Suede Loafers Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p5" data-name="Castagna Suede Loafers" data-price="780" data-img="https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=600&auto=format&fit=crop" data-variant="Castagna Brown">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Footwear</span>
+              <h3 class="product-name">Castagna Suede Loafers</h3>
+              <span class="product-price price-display">$780</span>
+            </div>
+          </article>
+
+          <!-- Product Card 6 (Unsplash Cashmere Lounge Blanket - Bestseller) -->
+          <article class="product-card scroll-reveal" data-categories="bestsellers all" data-id="p6">
+            <div class="product-image-container">
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p6">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop" alt="Oatmeal Cashmere Blanket Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?q=80&w=600&auto=format&fit=crop" alt="Oatmeal Cashmere Blanket Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p6" data-name="Oatmeal Cashmere Blanket" data-price="1250" data-img="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop" data-variant="Oatmeal Melange">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Living</span>
+              <h3 class="product-name">Oatmeal Cashmere Blanket</h3>
+              <span class="product-price price-display">$1,250</span>
+            </div>
+          </article>
+
+          <!-- Product Card 7 (Unsplash Soy Candle - Limited) -->
+          <article class="product-card scroll-reveal" data-categories="limited all" data-id="p7">
+            <div class="product-image-container">
+              <div class="scarcity-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">LIMITED RUN</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to Wishlist" data-id="p7">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
+                <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=600&auto=format&fit=crop" alt="Aura Brass Soy Candle Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?q=80&w=600&auto=format&fit=crop" alt="Aura Brass Soy Candle Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p7" data-name="Aura Brass Candle" data-price="110" data-img="https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=600&auto=format&fit=crop" data-variant="Sandalwood & Fig">ADD TO CART</button>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Apothecary</span>
+              <h3 class="product-name">Aura Brass Candle</h3>
+              <span class="product-price price-display">$110</span>
+            </div>
+          </article>
+
+          <!-- Product Card 8 (Unsplash Silk Trouser - Sold Out) -->
+          <article class="product-card sold-out-card scroll-reveal" data-categories="sale all" data-id="p8">
+            <div class="product-image-container">
+              <div class="sold-out-overlay">Sold Out</div>
+              <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container">
+                <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop" alt="Wool Pleated Trouser Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?q=80&w=600&auto=format&fit=crop" alt="Wool Pleated Trouser Detail" class="product-image-secondary image-loaded" loading="lazy">
+              </div>
+            </div>
+            <div class="product-meta">
+              <span class="product-category">Apparel</span>
+              <h3 class="product-name">Wool Pleated Trouser</h3>
+              <span class="product-price price-display" style="color: var(--text-hint); text-decoration: line-through;">$620</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CHAPTER 03 — THE CRAFT (Brand Story)
+         ========================================================================== -->
+    <section id="chapter-03" class="chapter section-padding" data-chapter="03" data-depth="#080808">
+      <div class="container">
+        <p class="chapter-label" style="margin-bottom: var(--space-lg);">Chapter 03 · The Craft</p>
+
+        <div class="craft-container">
+          
+          <!-- Block 1: Image Left, Text Right -->
+          <div class="craft-row craft-row-1">
+            <div class="craft-image-container craft-image-rim-right scroll-reveal interactive-image" id="parallax-img-1" style="will-change: transform;">
+              <img src="assets/story_craft.png" alt="Craftsman hand-weaving luxury cashmere threads on loom" class="image-loaded">
+            </div>
+            
+            <div class="craft-text-block scroll-reveal" style="will-change: transform;">
+              <p class="chapter-label" style="font-size: 8px;">Materials & Heritage</p>
+              <h3 class="craft-pullquote">"Honoring the natural cadence of loom and weaver."</h3>
+              <p class="body-text">
+                Every weave holds structural intelligence. Our garments do not rush. We work with raw material sourced from independent, family-owned pastoralists, honoring generational techniques to ensure each thread is soft, resilient, and beautiful.
+              </p>
+              <a href="#chapter-02" class="text-link scroll-to-link">Explore the collection <span>→</span></a>
+            </div>
+          </div>
+
+          <!-- Block 2: Text Left, Image Right -->
+          <div class="craft-row craft-row-2">
+            <div class="craft-text-block scroll-reveal" style="will-change: transform;">
+              <p class="chapter-label" style="font-size: 8px;">Atelier Philosophy</p>
+              <h3 class="craft-pullquote">"Bespoke designs built to outlive trends."</h3>
+              <p class="body-text">
+                Luxury lies in refinement, not statements. We design in our Milanese workspace with quiet conviction, rejecting mass-production to guarantee absolute attention to each finished stitch.
+              </p>
+              <a href="#chapter-05" class="text-link scroll-to-link">Explore the studio <span>→</span></a>
+            </div>
+
+            <div class="craft-image-container craft-image-rim-left scroll-reveal interactive-image" id="parallax-img-2" style="will-change: transform;">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" alt="Minimalist luxury fashion atelier workspace" class="image-loaded">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Raw Materials Archive / Tactile Library -->
+        <div class="materials-archive-section scroll-reveal" style="margin-top: var(--space-xl);">
+          <p class="chapter-label" style="font-size: 8px; text-align: center; margin-bottom: var(--space-xs);">Raw Materials Archive</p>
+          <h4 class="section-heading" style="text-align: center; margin-bottom: var(--space-lg); font-size: clamp(24px, 3vw, 36px);">The Tactile Library</h4>
+          
+          <div class="materials-explorer">
+            <div class="materials-tabs">
+              <button class="material-tab-btn active" data-material="cashmere">Mongolian Cashmere</button>
+              <button class="material-tab-btn" data-material="leather">Calfskin Leather</button>
+              <button class="material-tab-btn" data-material="silk">Mulberry Silk</button>
+              <button class="material-tab-btn" data-material="oud">Sartorial Oud</button>
+            </div>
+            
+            <div class="material-content-card">
+              <div class="material-img-wrapper">
+                <img id="material-display-img" src="assets/story_craft.png" alt="Raw cashmere wool weaving display" class="image-loaded">
+              </div>
+              <div class="material-info-panel">
+                <h5 id="material-title" style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold); font-style: italic;">Mongolian Cashmere</h5>
+                <p class="label-caps" id="material-origin" style="font-size: 9px; color: var(--text-secondary); margin-bottom: var(--space-xs);">Origin: Alashan Plateau, Inner Mongolia</p>
+                <p class="body-text" id="material-description">
+                  Harvested exclusively during the spring molting season. The underfleece fibres measure an average of 15.5 microns in fineness, creating an unmatched weight-to-warmth ratio. Hand-sorted and washed in pure mountain water.
+                </p>
+                <div class="materials-specs-grid-container" style="border-top: 1px solid var(--border); padding-top: var(--space-xs); margin-top: var(--space-xs); width: 100%;">
+                  <div class="material-specs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm);">
+                    <div>
+                      <span style="display: block; font-size: 9px; color: var(--text-hint); text-transform: uppercase; letter-spacing: 0.1em;">Thermal Rating</span>
+                      <strong id="material-spec-1" style="font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-primary); font-weight: 300;">Optimal Warmth</strong>
+                    </div>
+                    <div>
+                      <span style="display: block; font-size: 9px; color: var(--text-hint); text-transform: uppercase; letter-spacing: 0.1em;">Fiber Fineness</span>
+                      <strong id="material-spec-2" style="font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-primary); font-weight: 300;">15.5 Microns</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BETWEEN CHAPTERS: STATS BAR -->
+    <div class="stats-bar-container scroll-reveal">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <span class="stat-number" data-target="10000">0</span>
+          <span class="stat-label">Customers</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="4.9" data-decimals="1">0.0</span>
+          <span class="stat-label">Rating</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="40">0</span>
+          <span class="stat-label">Countries</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="100">0</span>
+          <span class="stat-label">Premium Materials</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="24">0</span>
+          <span class="stat-label">Dispatch Hr</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         CHAPTER 04 — THE PROOF (Testimonials)
+         ========================================================================== -->
+    <section id="chapter-04" class="chapter section-padding" data-chapter="04" data-depth="#090909" style="background-color: var(--bg-surface);">
+      <div class="container">
+        <p class="chapter-label" style="text-align: center; margin-bottom: var(--space-lg);">Chapter 04 · The Proof</p>
+        
+        <div class="testimonials-wrapper">
+          <div class="testimonials-container" id="testimonial-slider-container">
+            
+            <!-- Slide 1 -->
+            <div class="testimonial-slide active" data-index="0">
+              <div class="testimonial-rating">
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+              </div>
+              <blockquote class="testimonial-quote">
+                "The cashmere knit feels substantial yet weightless. It is, without question, the finest garment in my collection."
+              </blockquote>
+              <cite class="testimonial-author">Helen R., London</cite>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="testimonial-slide" data-index="1">
+              <div class="testimonial-rating">
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+              </div>
+              <blockquote class="testimonial-quote">
+                "Bespoke craftsmanship. The leather weekend bag is stunning, and the details are absolutely flawless."
+              </blockquote>
+              <cite class="testimonial-author">Marcus T., Tokyo</cite>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial-slide" data-index="2">
+              <div class="testimonial-rating">
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+              </div>
+              <blockquote class="testimonial-quote">
+                "The Amber Oud fragrance is subtle, sophisticated, and earthy. The bottle design is an art piece."
+              </blockquote>
+              <cite class="testimonial-author">Sophia G., Milan</cite>
+            </div>
+
+          </div>
+
+          <!-- Dot navigation -->
+          <ul class="testimonial-dots" id="testimonial-navigation-dots">
+            <li><button class="testimonial-control-dot active" data-index="0" aria-label="Slide 1"></button></li>
+            <li><button class="testimonial-control-dot" data-index="1" aria-label="Slide 2"></button></li>
+            <li><button class="testimonial-control-dot" data-index="2" aria-label="Slide 3"></button></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CHAPTER 05 — JOIN THE INNER CIRCLE (Newsletter)
+         ========================================================================== -->
+    <section id="chapter-05" class="chapter section-padding" data-chapter="05" data-depth="#080808">
+      <div class="container">
+        <p class="chapter-label" style="margin-bottom: var(--space-lg);">Chapter 05 · The Inner Circle</p>
+
+        <div class="inner-circle-grid scroll-reveal">
+          <div class="inner-circle-text">
+            <div class="heading-line-container">
+              <h2 class="section-heading heading-reveal-line">Stay Ahead of the Drop.</h2>
+            </div>
+            <p class="body-text" style="max-width: 440px;">
+              No promotions. No clutter. Just exclusive drop access and private seasonal launches. Crafted directly for the inner circle.
+            </p>
+          </div>
+
+          <div class="inner-circle-options">
+            <!-- Option 1: Email Form -->
+            <div class="newsletter-form-container">
+              <form class="newsletter-form" id="newsletter-email-form">
+                <div class="newsletter-input-group">
+                  <input type="email" placeholder="YOUR EMAIL ADDRESS" class="newsletter-input" required id="newsletter-email-input">
+                  <span class="input-focus-line"></span>
+                </div>
+                <button type="submit" class="newsletter-submit-btn" id="newsletter-submit-btn">
+                  <span>Subscribe</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  <span class="form-spinner" id="form-spinner"></span>
+                </button>
+              </form>
+              <!-- Success Message -->
+              <div class="newsletter-success" id="newsletter-success-el">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>You're in. First access is yours.</span>
+              </div>
+            </div>
+
+            <!-- Option 2: WhatsApp Channel CTA -->
+            <div>
+              <a href="https://wa.me/1234567890?text=Hello%20Aethel%2C%20I'd%20like%20to%20join%20the%20Inner%20Circle%20WhatsApp%20Channel." target="_blank" class="btn btn-gold interactive-cta" style="width: 100%; display: flex; gap: var(--space-xs); align-items: center;">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.731-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.012 14.077.99 11.999.99 6.562.99 2.137 5.36 2.134 10.79c-.001 1.639.49 3.242 1.42 4.836l-.994 3.634 3.737-.98c1.558.85 3.047 1.3 4.35 1.3zM18.06 14.9c-.33-.165-1.937-.954-2.235-1.063-.298-.11-.515-.165-.73.165-.218.33-.843 1.063-1.034 1.28-.19.219-.383.247-.713.082-1.343-.672-2.316-1.111-3.217-2.658-.238-.41.238-.38.68-.78.36-.328.165-.548.083-.713-.082-.165-.73-1.76-.999-2.414-.262-.633-.53-.548-.73-.558-.188-.008-.405-.01-.62-.01-.219 0-.573.082-.872.41-.298.33-1.14 1.113-1.14 2.715s1.168 3.142 1.33 3.361c.162.22 2.299 3.51 5.568 4.922 2.723 1.176 3.277.94 4.475.828 1.2-.11 2.236-.615 2.55-1.213.313-.598.313-1.11.219-1.213-.093-.104-.33-.165-.66-.33z"/>
+                </svg>
+                <span>Join WhatsApp Channel</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-grid">
+        <!-- Brand details -->
+        <div class="footer-column">
+          <a href="#" class="nav-logo" style="margin-bottom: var(--space-xs);">A E T H E L</a>
+          <p class="footer-brand-desc">
+            An offering of absolute textile integrity. Built for timeless grace, designed to inherit stories.
+          </p>
+          <ul class="footer-social-links" style="margin-top: var(--space-xs);">
+            <li>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="Pinterest">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12A10 10 0 0 0 12 2a10 10 0 0 0-3.3 19.45c-.05-.44-.1-.1 0 0l.5-3.08s-.13-.27-.13-.67c0-.63.36-1.1 1-1.1.48 0 .7.36.7.79 0 .47-.3 1.18-.46 1.84a1 1 0 0 0 .97 1.2c1.17 0 2.07-1.24 2.07-3 0-1.57-1.13-2.67-2.73-2.67a2.83 2.83 0 0 0-3 2.83c0 .48.18.99.4 1.25a.28.28 0 0 1 .07.24c-.04.18-.13.53-.15.6a.2.2 0 0 1-.22.1c-.69-.32-1.12-.76-1.12-1.74 0-1.78 1.3-3.4 3.73-3.4 1.95 0 3.47 1.39 3.47 3.25 0 1.94-1.22 3.5-2.92 3.5a1.47 1.47 0 0 1-1.27-.64c0 0-.28 1.07-.35 1.33A9.26 9.26 0 0 1 8 20.73a10 10 0 0 0 14-8.73z"></path></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="Journal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Shop links -->
+        <div class="footer-column">
+          <h5>Shop</h5>
+          <ul>
+            <li><a href="#chapter-02" class="scroll-to-link">Cashmere Outers</a></li>
+            <li><a href="#chapter-02" class="scroll-to-link">Bespoke Bags</a></li>
+            <li><a href="#chapter-02" class="scroll-to-link">Signature Fragrance</a></li>
+            <li><a href="#chapter-02" class="scroll-to-link">New Season Drop</a></li>
+          </ul>
+        </div>
+
+        <!-- Help links -->
+        <div class="footer-column">
+          <h5>Help & Care</h5>
+          <ul>
+            <li><a href="#" id="footer-garment-care">Garment Care</a></li>
+            <li><a href="#" id="footer-shipping">Shipping & Duties</a></li>
+            <li><a href="#" id="footer-returns">Returns Policy</a></li>
+            <li><a href="#" id="footer-concierge">Client Concierge</a></li>
+          </ul>
+        </div>
+
+        <!-- Social links -->
+        <div class="footer-column">
+          <h5>Atelier</h5>
+          <ul>
+            <li><a href="#" id="footer-milan">Milan Showroom</a></li>
+            <li><a href="#" id="footer-journal">Studio Journal</a></li>
+            <li><a href="#" id="footer-heritage">Heritage Craft</a></li>
+            <li><a href="#" id="footer-sustain">Sustainability Report</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal links -->
+        <div class="footer-column">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="#" id="footer-privacy">Privacy Settings</a></li>
+            <li><a href="#" id="footer-terms">Terms & Conditions</a></li>
+            <li><a href="#" id="footer-access">Accessibility Act</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Footer Bottom Row -->
+      <div class="footer-bottom-bar">
+        <span>© 2025 AETHEL. Made with intention.</span>
+        
+        <!-- Payment SVGs (Visa, MC, Amex, PayPal) -->
+        <div class="footer-payments" aria-label="Payment Methods Accepted">
+          <!-- Visa -->
+          <svg viewBox="0 0 24 15" width="28" height="18" fill="currentColor">
+            <path d="M12.012.3c-2.427 0-4.04 1.154-4.04 2.769 0 2.22 3.447 2.378 3.447 3.535 0 .394-.482.723-1.077.723-1.442 0-2.404-.543-2.404-.543l-.438 1.954s1.002.43 2.457.43c2.518 0 4.149-1.15 4.149-2.793 0-2.316-3.473-2.5-3.473-3.568 0-.323.364-.64 1.078-.64.928 0 1.905.337 1.905.337l.45-1.92s-.883-.33-2.094-.33zM3.454.382l-2.735 7.42h2.2l.439-1.226h2.7l.255 1.226h1.928L6.471.382H3.454zm1.536 1.733l.904 3.018h-1.81l.906-3.018zM19.002.382l-1.93 5.165-.826-5.165h-2.127l1.83 8.358h1.94L21.05.382h-2.048zm2.44 0h1.83l-1.83 8.358h-1.83l1.83-8.358z"/>
+          </svg>
+          <!-- Mastercard -->
+          <svg viewBox="0 0 24 15" width="28" height="18" fill="currentColor">
+            <circle cx="8.5" cy="7.5" r="6" opacity="0.85"></circle>
+            <circle cx="15.5" cy="7.5" r="6" opacity="0.85"></circle>
+          </svg>
+          <!-- Amex -->
+          <svg viewBox="0 0 24 15" width="28" height="18" fill="currentColor">
+            <path d="M22 0H2C.9 0 0 .9 0 2v11c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zM8.8 10.2H6.9l-.3-1.1H4.8l-.3 1.1H2.6l1.7-5.4h2.7l1.8 5.4zm3.9-3.2c0-.5-.3-.7-.9-.7h-1.3v3.2h1.3c.6 0 .9-.2.9-.7V7zm3.1 3.2h-1.1V8.6h-.8v1.6H13V5.2h2.7c.9 0 1.5.5 1.5 1.3 0 .6-.3.9-.8 1.1l.9 2.6zm3.6-.8l.8-.8.8.8.8-.8-1.2-1.2 1.2-1.2-.8-.8-.8.8-.8-.8-.8.8 1.2 1.2-1.2 1.2.8.8z"/>
+          </svg>
+          <!-- Paypal -->
+          <svg viewBox="0 0 24 15" width="28" height="18" fill="currentColor">
+            <path d="M20.016 4.3c0-2.4-1.8-4-4.5-4h-7.6c-.6 0-1 .4-1.1 1l-2.6 13c-.1.3.1.5.4.5h3.8c.4 0 .7-.3.8-.7l1-5h1c3.1 0 5.4-1.5 6.1-4.7v-.1zm-4.7 0c-.3 1.6-1.5 2.5-3.3 2.5h-1.8l.9-4.5h1.8c1.7 0 2.6.8 2.4 2z"/>
+          </svg>
+        </div>
+
+        <span>Milan, Tokyo, New York</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       CART DRAWER & OVERLAY (Right Side)
+       ========================================================================== -->
+  <div class="cart-drawer-overlay" id="cart-overlay-element"></div>
+  <div class="cart-drawer" id="cart-drawer-element" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    
+    <!-- Cart Header -->
+    <div class="cart-header">
+      <h3 id="cart-title">Your Cart</h3>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Close Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Pinned Drawer Alert (Scarcity Urgency) -->
+    <div class="cart-drawer-alert" style="background-color: var(--gold-shimmer); border-bottom: 1px solid var(--border); padding: 12px var(--space-lg); font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--gold); display: flex; align-items: center; gap: 8px; justify-content: center;">
+      <span style="width: 5px; height: 5px; background-color: var(--gold); border-radius: 50%; display: inline-block;"></span>
+      <span>Checkout in the next 10 minutes to secure limited run items.</span>
+    </div>
+
+    <!-- Scrollable Items Container -->
+    <div class="cart-items-container" id="cart-items-list-container">
+      <!-- Generated dynamically by main.js, default to Empty State -->
+      <div class="cart-empty-state" id="cart-empty-state-el">
+        <p>Your cart is empty.</p>
+        <a href="#chapter-02" class="text-link" id="cart-continue-shopping-btn">Continue Shopping <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- Pinned Footer Totals -->
+    <div class="cart-footer" id="cart-footer-el" style="display: none;">
+      <div class="cart-totals-row">
+        <span class="cart-totals-label">Subtotal</span>
+        <span class="cart-totals-value" id="cart-subtotal-price">$0</span>
+      </div>
+      <button class="btn btn-primary cart-checkout-btn" id="cart-checkout-trigger">Checkout</button>
+      <a href="#" class="cart-secondary-cta" id="cart-whatsapp-checkout-btn">Or order via WhatsApp <span>→</span></a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       WISHLIST DRAWER & OVERLAY (Right Side - shares same space system)
+       ========================================================================== -->
+  <div class="cart-drawer-overlay" id="wishlist-overlay-element"></div>
+  <div class="cart-drawer" id="wishlist-drawer-element" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="wishlist-title">
+    
+    <!-- Wishlist Header -->
+    <div class="cart-header">
+      <h3 id="wishlist-title">Your Wishlist</h3>
+      <button class="cart-close-btn" id="wishlist-close-btn" aria-label="Close Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Scrollable Items Container -->
+    <div class="cart-items-container" id="wishlist-items-list-container">
+      <!-- Generated dynamically by main.js, default to Empty State -->
+      <div class="cart-empty-state" id="wishlist-empty-state-el">
+        <p>Your wishlist is currently clear.</p>
+        <a href="#chapter-02" class="text-link" id="wishlist-continue-shopping-btn">Explore Curation <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CLIENT PORTAL DRAWER & OVERLAY (Left Side)
+       ========================================================================== -->
+  <div class="cart-drawer-overlay" id="client-overlay-element"></div>
+  <div class="cart-drawer" id="client-portal-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="client-title">
+    
+    <!-- Portal Header -->
+    <div class="cart-header">
+      <h3 id="client-title">Client Portal</h3>
+      <button class="cart-close-btn" id="client-close-btn" aria-label="Close Portal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Inner content blocks (Sign In Form OR Profile View) -->
+    <div class="cart-items-container" id="client-portal-inner" style="justify-content: center;">
+      
+      <!-- SIGN IN FORM (Visible initially) -->
+      <div id="client-signin-form-block" style="width: 100%; display: flex; flex-direction: column; gap: var(--space-md);">
+        <p class="chapter-label" style="font-size: 8px;">Access private atelier archive</p>
+        <h4 class="craft-pullquote" style="font-size: 24px; text-align: left;">Welcome Back.</h4>
+        
+        <form id="portal-login-form" style="display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-sm);">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="EMAIL ADDRESS" class="newsletter-input" required id="portal-email-input">
+            <span class="input-focus-line"></span>
+          </div>
+          <div class="newsletter-input-group">
+            <input type="password" placeholder="SECURE PASSWORD" class="newsletter-input" required id="portal-password-input">
+            <span class="input-focus-line"></span>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="margin-top: var(--space-md); width: 100%;">
+            <span>Sign In</span>
+            <span class="form-spinner" id="portal-login-spinner" style="margin-left: var(--space-xs);"></span>
+          </button>
+        </form>
+        
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: var(--space-xs); color: var(--text-secondary);">
+          <a href="#" id="portal-forgot-password" class="text-link" style="text-transform: none; letter-spacing: 0;">Forgot Password?</a>
+          <span style="color: var(--text-hint);">·</span>
+          <a href="#" id="portal-create-account" class="text-link" style="text-transform: none; letter-spacing: 0;">Request Invitation</a>
+        </div>
+      </div>
+
+      <!-- CLIENT PROFILE DETAILS (Hidden initially, shown after authentication) -->
+      <div id="client-profile-details-block" style="width: 100%; display: none; flex-direction: column; gap: var(--space-md);">
+        <p class="chapter-label" style="font-size: 8px; color: var(--gold);">Exclusive Member Profile</p>
+        <h4 class="craft-pullquote" id="client-profile-name" style="font-size: 24px; text-align: left;">John Smith</h4>
+        
+        <div class="client-profile-card" style="background-color: var(--bg-raised); border: 1px solid var(--border); padding: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-sm);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px;">
+            <span style="color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">Atelier Tier</span>
+            <span style="color: var(--gold); font-weight: 500;">PLATINUM CLIENT</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; border-top: 1px solid var(--border); padding-top: var(--space-xs);">
+            <span style="color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">Saved Sizing</span>
+            <span id="client-saved-sizing-span">Coat 48 / Shoe 42</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; border-top: 1px solid var(--border); padding-top: var(--space-xs);">
+            <span style="color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">Private Allocation</span>
+            <span style="color: var(--gold);">Active (2 Drops)</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-xs);">
+          <p class="label-caps" style="font-size: 9px; color: var(--text-hint);">Concierge Services</p>
+          <button class="btn btn-gold" id="portal-size-advisor-btn" style="width: 100%; padding: 12px var(--space-sm);">Size Advisor Tool</button>
+          <a href="https://wa.me/1234567890?text=Hello%20Concierge%2C%20I'd%20like%20to%20schedule%20a%20private%20atelier%20fitting." target="_blank" class="btn btn-primary" style="width: 100%; padding: 12px var(--space-sm); border-color: var(--border);">Bespoke Fittings</a>
+          <button class="btn btn-secondary" id="client-logout-trigger" style="width: 100%; padding: 12px var(--space-sm); margin-top: var(--space-xs);">Sign Out</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SPOTLIGHT SEARCH OVERLAY (Full Screen Blur)
+       ========================================================================== -->
+  <div class="search-overlay" id="search-overlay-element" aria-hidden="true" role="dialog">
+    <button class="search-overlay-close" id="search-overlay-close-btn" aria-label="Close Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="search-overlay-container">
+      <p class="chapter-label" style="text-align: center; font-size: 8px; margin-bottom: var(--space-sm);">Archive Search</p>
+      
+      <!-- Big Search Input -->
+      <div style="position: relative; width: 100%;">
+        <input type="text" placeholder="Search the collection..." class="search-overlay-input" id="search-overlay-input-el" autocomplete="off">
+        <span class="search-input-underline"></span>
+      </div>
+
+      <!-- Results Area -->
+      <div class="search-results-area" id="search-results-list-el">
+        <p class="body-text" style="text-align: center; color: var(--text-hint);">Type at least 2 characters to filter the catalog...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SIZE ADVISOR DIALOG (Interactive Sizing Tool)
+       ========================================================================== -->
+  <div class="checkout-success-backdrop" id="size-advisor-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(12px); z-index: 1500; align-items: center; justify-content: center; opacity: 0; transition: opacity 400ms ease;">
+    <div class="checkout-success-dialog" style="background-color: var(--bg-surface); border: 1px solid var(--border); padding: var(--space-xl) var(--space-lg); max-width: 500px; width: 90%; text-align: center; box-shadow: 0 20px 80px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: var(--space-md); position: relative;">
+      
+      <button class="cart-close-btn" id="size-advisor-close-btn" aria-label="Close Advisor" style="position: absolute; top: 20px; right: 20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <p class="chapter-label" style="color: var(--gold); font-size: 8px;">Atelier Sizing</p>
+      <h4 class="section-heading" style="font-size: 32px;">Find Your Fit.</h4>
+      
+      <p class="body-text" style="font-size: 13px;">
+        Select your measurements below. Our algorithms map your proportions against classical Italian tailoring structures.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-sm); text-align: left; margin-top: var(--space-xs);">
+        <!-- Height selector slider -->
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary);">
+            <span>Height</span>
+            <span id="advisor-height-val" style="color: var(--text-primary);">175 cm</span>
+          </div>
+          <input type="range" min="150" max="210" value="175" class="advisor-slider" id="advisor-height-slider" style="width: 100%; -webkit-appearance: none; background: var(--border); height: 2px; outline: none; border-radius: 0;">
+        </div>
+        
+        <!-- Weight selector slider -->
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary);">
+            <span>Weight</span>
+            <span id="advisor-weight-val" style="color: var(--text-primary);">70 kg</span>
+          </div>
+          <input type="range" min="45" max="110" value="70" class="advisor-slider" id="advisor-weight-slider" style="width: 100%; -webkit-appearance: none; background: var(--border); height: 2px; outline: none; border-radius: 0;">
+        </div>
+      </div>
+
+      <!-- Recommendation results -->
+      <div style="background-color: var(--bg-raised); border: 1px solid var(--border); padding: var(--space-sm); display: flex; flex-direction: column; gap: 4px; margin-top: var(--space-xs); text-align: center;">
+        <span style="font-size: 10px; color: var(--text-hint); text-transform: uppercase; letter-spacing: 0.1em;">Recommended Atelier Size</span>
+        <span id="advisor-size-recommendation" style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); font-weight: 300;">IT 48</span>
+      </div>
+
+      <button class="btn btn-primary" id="size-advisor-apply-btn" style="width: 100%; margin-top: var(--space-xs);">Apply to Profile</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CHECKOUT DIALOG (Success Modal Popup)
+       ========================================================================== -->
+  <div class="checkout-success-backdrop" id="checkout-success-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(12px); z-index: 1500; align-items: center; justify-content: center; opacity: 0; transition: opacity 400ms ease;">
+    <div class="checkout-success-dialog" style="background-color: var(--bg-surface); border: 1px solid var(--border); padding: var(--space-xl) var(--space-lg); max-width: 480px; width: 90%; text-align: center; box-shadow: 0 20px 80px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: var(--space-md); position: relative;">
+      
+      <div style="display: flex; justify-content: center; margin-bottom: var(--space-xs);">
+        <div style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; color: var(--gold);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+
+      <p class="chapter-label" style="color: var(--gold); font-size: 8px;">Order Confirmed</p>
+      <h4 class="section-heading" style="font-size: 32px;">Bespoke Order Sent.</h4>
+      
+      <p class="body-text" style="font-size: 13px;">
+        Thank you for your order. Your unique booking ID is <span id="checkout-order-id" style="color: var(--gold); font-family: monospace;">AETH-4902</span>. The atelier concierge will reach out via email shortly to coordinate dispatch details.
+      </p>
+
+      <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: var(--space-xs) 0; font-family: monospace; font-size: 11px; color: var(--text-secondary); text-align: left; display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between;"><span>Estimated Shipping:</span><span style="color: var(--text-primary);">24-48 Hours</span></div>
+        <div style="display: flex; justify-content: space-between;"><span>Carrier Service:</span><span style="color: var(--text-primary);">DHL Express Premium</span></div>
+      </div>
+
+      <button class="btn btn-primary" id="checkout-success-close-btn" style="width: 100%; margin-top: var(--space-xs);">Close Window</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-alerts-container"></div>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top-btn" id="scroll-to-top" aria-label="Scroll back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <!-- Interaction Logic Script -->
+  <script src="main.js"></script>
+</body>
+</html>
