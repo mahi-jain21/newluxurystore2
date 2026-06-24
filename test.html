@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+window.onerror = function(message, source, lineno, colno, error) {
+    fetch('http://localhost:8081/error', {
+        method: 'POST',
+        body: JSON.stringify({message, lineno, colno})
+    });
+};
+</script>
+<script src="main.js"></script>
+</head>
+<body></body>
+</html>
