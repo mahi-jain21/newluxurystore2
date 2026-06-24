@@ -8,7 +8,7 @@
   const TOTAL   = 300;
   const SECTION_HEIGHT = '700vh'; // must match CSS
   const FRAME   = (i) =>
-    `luxuryvideoframes/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
+    `luxuryvideoframes/ezgif-frame-${String(i).padStart(3, '0')}.jpg?v=2`;
 
   /* ── BEAT DEFINITIONS ── */
   const BEATS = [

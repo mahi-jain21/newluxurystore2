@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Configuration
   const TOTAL_FRAMES = 300;
   const FRAME_PATH = (i) =>
-    `luxuryvideoframes/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
+    `luxuryvideoframes/ezgif-frame-${String(i).padStart(3, '0')}.jpg?v=2`;
 
   // Preloading System
   const images = [];
