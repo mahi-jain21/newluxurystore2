@@ -3137,3 +3137,54 @@ body.cart-open {
 body {
   transition: background-color 1.2s ease;
 }
+/* Luxury Watermark (covers bottom right) */
+.luxury-watermark {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 280px;
+  height: 140px;
+  background: linear-gradient(135deg, rgba(8, 8, 8, 0.5), rgba(2, 2, 2, 0.95));
+  border-top-left-radius: 6px;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  border-left: 1px solid rgba(212, 175, 55, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: -10px -10px 40px rgba(0,0,0,0.9);
+  pointer-events: none;
+}
+
+.luxury-watermark .watermark-brand {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold, #d4af37);
+  font-size: 1.15rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+
+.luxury-watermark .watermark-edition {
+  font-family: 'DM Sans', sans-serif;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .luxury-watermark {
+    width: 200px;
+    height: 100px;
+  }
+  .luxury-watermark .watermark-brand {
+    font-size: 0.9rem;
+  }
+  .luxury-watermark .watermark-edition {
+    font-size: 0.5rem;
+  }
+}
