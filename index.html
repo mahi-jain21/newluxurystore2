@@ -130,56 +130,127 @@
   </div>
 
   <main>
-    <!-- ==========================================================================
-         CHAPTER 01 — THE ARRIVAL (Hero)
-         ========================================================================== -->
-    <section id="chapter-01" class="chapter hero-section active-chapter" data-chapter="01" data-depth="#080808">
-      <div class="hero-bg-container">
-        <img src="assets/hero_bg.png" alt="" class="hero-bg-image" fetchpriority="high">
-        <div class="hero-overlay"></div>
-      </div>
 
-      <div class="container hero-grid">
-        <!-- Left content block -->
-        <div class="hero-text-block">
-          <p class="chapter-label hero-badge">Chapter 01 · The Arrival</p>
-          <div style="display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-xs);">
-            <p class="label-caps hero-badge" style="color: var(--gold); font-size: 11px;">New Season Drop · 2025</p>
-            <div class="hero-headline">
-              <span class="hero-title-line"><h1>The Art of</h1></span>
-              <span class="hero-title-line"><h1>Quiet Luxury.</h1></span>
-              <span class="hero-title-line"><h1>Cashmere Knit.</h1></span>
-            </div>
-          </div>
-          <p class="body-text hero-body" style="max-width: 440px; margin-top: var(--space-xs);">
-            A singular expression of pure textile form and warmth. Hand-loomed in Italy from raw Mongolian cashmere. Crafted for generational endurance.
-          </p>
-          
-          <div class="hero-ctas" style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-sm);">
-            <div class="hero-ctas-container">
-              <button class="btn btn-primary interactive-cta" id="hero-primary-cta">Shop The Drop</button>
-              <a href="#chapter-03" class="btn btn-secondary interactive-cta">Explore Story</a>
-            </div>
-            <!-- Urgency Strip -->
-            <div class="hero-urgency-strip">
-              <span class="urgency-dot"></span>
-              <span>Only 12 items remaining · Ships in 24hrs</span>
-            </div>
-          </div>
+    <!-- LOADER — shown while frames preload -->
+    <div id="aethel-loader">
+      <div id="loader-inner">
+        <span id="loader-brand">A E T H E L</span>
+        <div id="loader-track">
+          <div id="loader-fill"></div>
         </div>
-
-        <!-- Right image block -->
-        <div class="hero-image-block">
-          <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image" style="will-change: transform;">
-            <img src="assets/hero_product.png" alt="Featured Cashmere Coat details" class="image-loaded" fetchpriority="high">
-          </div>
-        </div>
+        <span id="loader-pct">0%</span>
       </div>
+    </div>
 
-      <!-- Pulse Scroll Indicator -->
-      <div class="hero-scroll-indicator">
-        <p class="label-caps" style="font-size: 8px; color: var(--text-hint);">Scroll</p>
-        <div class="hero-scroll-line"></div>
+    <!-- FRAME SEQUENCE HERO -->
+    <section id="chapter-01" class="sequence-section">
+      <div class="sequence-sticky">
+        <canvas id="hero-canvas"></canvas>
+        <div id="beat-container">
+
+          <!-- BEAT 1: 0%–14% scroll -->
+          <div class="beat" id="beat-1"
+            style="top:50%;left:50%;
+                   transform:translate(-50%,-55%);
+                   text-align:center;">
+            <span class="beat-label">Chapter 01 · The Arrival</span>
+            <h1 class="beat-headline">
+              <span class="line-wrap"><span class="line">The Art of</span></span>
+              <span class="line-wrap"><span class="line"><em>Quiet</em></span></span>
+              <span class="line-wrap"><span class="line">Luxury.</span></span>
+            </h1>
+          </div>
+
+          <!-- BEAT 2: 16%–30% scroll -->
+          <div class="beat" id="beat-2"
+            style="top:50%;left:7%;
+                   transform:translateY(-50%);">
+            <span class="beat-label">New Season · 2025</span>
+            <h2 class="beat-sub">
+              Hand-loomed<br>
+              in <em>Milan.</em>
+            </h2>
+            <p class="beat-body">
+              Raw Mongolian cashmere sourced from<br>
+              independent family pastoralists.<br>
+              Crafted for generational endurance.
+            </p>
+          </div>
+
+          <!-- BEAT 3: 32%–46% scroll -->
+          <div class="beat" id="beat-3"
+            style="top:50%;right:7%;
+                   transform:translateY(-50%);
+                   text-align:right;">
+            <span class="beat-label">The Material</span>
+            <h2 class="beat-sub">
+              15.5 microns.<br>
+              <em>Nothing coarser.</em>
+            </h2>
+            <p class="beat-body" style="margin-left:auto">
+              Fiber fineness measured to the decimal.<br>
+              Temperature-regulated mountain washing.<br>
+              Hand-sorted. Always.
+            </p>
+          </div>
+
+          <!-- BEAT 4: 48%–62% scroll -->
+          <div class="beat" id="beat-4"
+            style="bottom:10%;left:50%;
+                   transform:translateX(-50%);
+                   text-align:center;">
+            <span class="beat-label">The Process</span>
+            <h2 class="beat-sub">
+              <em>Seventy-two hours</em><br>
+              of finishing.
+            </h2>
+          </div>
+
+          <!-- BEAT 5: 64%–78% scroll -->
+          <div class="beat" id="beat-5"
+            style="top:18%;left:7%;">
+            <span class="beat-label">The Rarity</span>
+            <h2 class="beat-sub">
+              Limited<br>
+              to <em>500.</em>
+            </h2>
+            <p class="beat-body">
+              No reorders. No exceptions.<br>
+              Each piece carries a numbered atelier card.
+            </p>
+          </div>
+
+          <!-- BEAT 6: 82%–100% scroll -->
+          <div class="beat" id="beat-6"
+            style="top:50%;left:50%;
+                   transform:translate(-50%,-50%);
+                   text-align:center;">
+            <span class="beat-label">Yours</span>
+            <h2 class="beat-sub" style="font-size:clamp(36px,5vw,72px)">
+              The question<br>
+              is <em>when.</em>
+            </h2>
+            <div class="beat-cta-group">
+              <button class="btn-primary-seq"
+                onclick="document.getElementById('chapter-02').scrollIntoView({behavior:'smooth'})">
+                Shop The Drop
+              </button>
+              <span class="beat-urgency">
+                ⚡ Only 12 remaining · Ships in 24hrs
+              </span>
+            </div>
+          </div>
+
+        </div><!-- end beat-container -->
+
+        <!-- thin gold progress line right edge -->
+        <div id="seq-progress"></div>
+
+        <!-- scroll nudge -->
+        <div id="scroll-nudge">
+          <span>Scroll</span>
+          <div id="scroll-line"></div>
+        </div>
       </div>
     </section>
 
@@ -454,10 +525,10 @@
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
               </button>
               <div class="image-ratio-wrapper ratio-3-4 mask-reveal-container interactive-image">
-                <img src="https://images.unsplash.com/photo-1603808033192-082d6f74b30d?q=80&w=600&auto=format&fit=crop" alt="Atelier Leather Slides Front" class="product-image-primary image-loaded">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop" alt="Atelier Leather Slides Front" class="product-image-primary image-loaded">
                 <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop" alt="Atelier Leather Slides Detail" class="product-image-secondary image-loaded" loading="lazy">
               </div>
-              <button class="quick-add-bar add-to-cart-btn" data-id="p12" data-name="Atelier Leather Slides" data-price="680" data-img="https://images.unsplash.com/photo-1603808033192-082d6f74b30d?q=80&w=600&auto=format&fit=crop" data-variant="Tuscan Tan Calfskin">ADD TO CART</button>
+              <button class="quick-add-bar add-to-cart-btn" data-id="p12" data-name="Atelier Leather Slides" data-price="680" data-img="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop" data-variant="Tuscan Tan Calfskin">ADD TO CART</button>
             </div>
             <div class="product-meta">
               <span class="product-category">Footwear</span>
@@ -1076,6 +1147,7 @@
   </button>
 
   <!-- Interaction Logic Script -->
-  <script src="main.js"></script>
+  <script src="sequence.js?v=5"></script>
+  <script src="main.js?v=2"></script>
 </body>
 </html>

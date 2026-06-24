@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBSCUR | Apple-Style Scroll-Driven Timepiece</title>
+  <meta name="description" content="Discover OBSCUR. An Apple-style scroll-driven experience detailing a structural titanium timepiece. Limited to 500 pieces.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;1,200;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css?v=2.0">
+  
+  <!-- GSAP Core & ScrollTrigger for high-performance below-the-fold reveals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader">
+    <span id="brand-name">OBSCUR</span>
+    <div id="loader-bar-track">
+      <div id="loader-bar-fill"></div>
+    </div>
+    <span id="loader-label">Loading experience...</span>
+  </div>
+
+  <!-- MAIN SITE -->
+  <main id="site" style="opacity:0">
+
+    <!-- NAV -->
+    <nav id="navbar">
+      <a href="#" class="nav-brand">OBSCUR</a>
+      <ul class="nav-links">
+        <li><a href="#sequence-section">Home</a></li>
+        <li><a href="#chapter-details">Collection</a></li>
+        <li><a href="#chapter-story">Story</a></li>
+        <li><a href="#chapter-acquire">Contact</a></li>
+      </ul>
+      <div class="nav-cart">
+        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge">0</span>
+      </div>
+    </nav>
+
+    <!-- SCROLL SEQUENCE HERO -->
+    <section id="sequence-section">
+      <div id="sequence-sticky">
+        <canvas id="sequence-canvas"></canvas>
+        
+        <div id="text-overlay-container">
+          <!-- BEAT 1 -->
+          <div class="text-beat" id="beat-1" style="top:50%;left:50%;transform:translate(-50%,-60%) translateY(30px);text-align:center;">
+            <span class="label">Chapter One</span>
+            <h1 class="headline">
+              Crafted<br>
+              for those<br>
+              who <em>notice.</em>
+            </h1>
+          </div>
+
+          <!-- BEAT 2 -->
+          <div class="text-beat" id="beat-2" style="top:50%;left:8%;transform:translateY(-50%) translateX(-30px);">
+            <span class="label">The Material</span>
+            <h2 class="headline" style="font-size:clamp(32px,4vw,56px)">
+              Not made.<br>
+              <em>Composed.</em>
+            </h2>
+            <p class="body-copy">
+              Each element chosen for how it feels —<br>not for how it photographs.
+            </p>
+          </div>
+
+          <!-- BEAT 3 -->
+          <div class="text-beat" id="beat-3" style="top:50%;right:8%;transform:translateY(-50%) translateX(30px); text-align:right;">
+            <span class="label">The Form</span>
+            <h2 class="headline" style="font-size:clamp(32px,4vw,56px)">
+              Geometry<br>
+              as <em>luxury.</em>
+            </h2>
+            <p class="body-copy" style="margin-left:auto">
+              Designed at 1:1 scale before a single<br>unit was ever produced.
+            </p>
+          </div>
+
+          <!-- BEAT 4 -->
+          <div class="text-beat" id="beat-4" style="bottom:12%;left:50%;transform:translateX(-50%) translateY(30px); text-align:center;">
+            <span class="label">The Craft</span>
+            <h2 class="headline" style="font-size:clamp(28px,3.5vw,52px)">
+              <em>Seventy-two hours</em><br>
+              of finishing.
+            </h2>
+          </div>
+
+          <!-- BEAT 5 -->
+          <div class="text-beat" id="beat-5" style="top:20%;left:8%;transform:translateX(-30px);">
+            <span class="label">The Rarity</span>
+            <h2 class="headline" style="font-size:clamp(32px,4vw,60px)">
+              500<br>
+              <em>only.</em>
+            </h2>
+            <p class="body-copy">
+              Each piece numbered. No reorders.<br>No exceptions.
+            </p>
+          </div>
+
+          <!-- BEAT 6 -->
+          <div class="text-beat" id="beat-6" style="top:50%;left:50%;transform:translate(-50%,-50%) translateY(30px); text-align:center;">
+            <span class="label">Yours</span>
+            <h2 class="headline" style="font-size:clamp(36px,5vw,72px)">
+              The question<br>
+              is <em>when.</em>
+            </h2>
+            <div style="margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <span style="font-size:32px;font-family:'Cormorant Garamond',serif;color:var(--gold);font-weight:300;">₹ 24,000</span>
+              <button class="cta-primary" data-hover>Acquire Yours</button>
+              <span style="font-size:10px;letter-spacing:0.15em;color:var(--text-hint);text-transform:uppercase;">
+                Free worldwide shipping · Ships in 48hrs
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div id="scroll-progress-bar"></div>
+      </div>
+    </section>
+
+    <!-- BELOW SCROLL SECTIONS -->
+    <!-- SECTION A: PRODUCT DETAILS -->
+    <section id="chapter-details" class="reveal-section">
+      <div class="details-container">
+        <div class="details-image-block">
+          <img src="assets/obscur_product.png" alt="OBSCUR Geometric Timepiece Detail" class="details-img">
+        </div>
+        <div class="details-specs-block">
+          <span class="section-badge">Specification</span>
+          <h2 class="section-title">Refined Architecture</h2>
+          
+          <div class="spec-list">
+            <div class="spec-row">
+              <span class="spec-label">Case Diameter</span>
+              <span class="spec-value">40 mm</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">Matte Sandblasted Grade 5 Titanium</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Movement</span>
+              <span class="spec-value">Bespoke Caliber-O mechanical manual-wind</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Power Reserve</span>
+              <span class="spec-value">72 Hours (Double Barrel)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Glass</span>
+              <span class="spec-value">Arched Sapphire Crystal with double anti-reflective coating</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Water Resistance</span>
+              <span class="spec-value">5 ATM (50 Meters)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Strap</span>
+              <span class="spec-value">Bespoke Architectural Rubber with titanium clasp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION B: THE STORY -->
+    <section id="chapter-story" class="reveal-section">
+      <div class="story-container">
+        <div class="story-quote-wrapper">
+          <div class="gold-indicator-line"></div>
+          <blockquote class="story-pullquote">
+            "To strip away the noise is to leave no room for error."
+          </blockquote>
+        </div>
+        <div class="story-paragraphs">
+          <p class="body-text">
+            OBSCUR was conceived not as a device for measuring time, but as an exploration of physical presence. The architectural silhouette, carved from a single block of aerospace grade-5 titanium, honors the pure geometry of modern structural form. Every angle, finish, and micro-component was designed and refined at a 1:1 scale over three years of studio iteration.
+          </p>
+          <p class="body-text" style="margin-top: 24px;">
+            Our finishing process demands seventy-two hours of manual sandblasting and diamond-tipping. The result is a tactile velvet matte texture that absorbs light, presenting a silhouette that does not demand attention, but commands it. It is a quiet performance, limited strictly to five hundred numbered pieces.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION C: MARQUEE STRIP -->
+    <section id="chapter-specs">
+      <div class="marquee-strip-container">
+        <div class="marquee-track">
+          <div class="marquee-content">
+            <span>HANDCRAFTED</span><span class="gold-separator">◆</span>
+            <span>LIMITED TO 500</span><span class="gold-separator">◆</span>
+            <span>FREE WORLDWIDE SHIPPING</span><span class="gold-separator">◆</span>
+            <span>EST. 2024</span><span class="gold-separator">◆</span>
+            
+            <span>HANDCRAFTED</span><span class="gold-separator">◆</span>
+            <span>LIMITED TO 500</span><span class="gold-separator">◆</span>
+            <span>FREE WORLDWIDE SHIPPING</span><span class="gold-separator">◆</span>
+            <span>EST. 2024</span><span class="gold-separator">◆</span>
+
+            <span>HANDCRAFTED</span><span class="gold-separator">◆</span>
+            <span>LIMITED TO 500</span><span class="gold-separator">◆</span>
+            <span>FREE WORLDWIDE SHIPPING</span><span class="gold-separator">◆</span>
+            <span>EST. 2024</span><span class="gold-separator">◆</span>
+
+            <span>HANDCRAFTED</span><span class="gold-separator">◆</span>
+            <span>LIMITED TO 500</span><span class="gold-separator">◆</span>
+            <span>FREE WORLDWIDE SHIPPING</span><span class="gold-separator">◆</span>
+            <span>EST. 2024</span><span class="gold-separator">◆</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION D: ACQUIRE -->
+    <section id="chapter-acquire" class="reveal-section">
+      <div class="particles-field">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+        <div class="particle p6"></div>
+        <div class="particle p7"></div>
+        <div class="particle p8"></div>
+        <div class="particle p9"></div>
+        <div class="particle p10"></div>
+        <div class="particle p11"></div>
+        <div class="particle p12"></div>
+        <div class="particle p13"></div>
+        <div class="particle p14"></div>
+        <div class="particle p15"></div>
+      </div>
+      
+      <div class="acquire-content">
+        <span class="label">Availability</span>
+        <h2 class="headline" style="font-size: clamp(40px, 6.5vw, 84px); margin-bottom: 16px;">Yours, if you move.</h2>
+        <span class="acquire-price">₹ 24,000</span>
+        
+        <div class="acquire-ctas" style="margin-top: 40px; display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <button class="cta-primary" id="btn-acquire-yours" data-hover>Acquire Yours</button>
+          <button class="cta-secondary" id="btn-learn-more" data-hover>Learn More</button>
+        </div>
+        <span style="font-size:10px; letter-spacing:0.15em; color:var(--text-hint); text-transform:uppercase; margin-top: 24px; display: block;">
+          Free worldwide shipping · Ships in 48hrs · Insured delivery
+        </span>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <p class="brand-text">OBSCUR</p>
+          <p class="copyright">© 2026 OBSCUR. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+          <ul class="footer-links">
+            <li><a href="#" data-hover>Terms of Sale</a></li>
+            <li><a href="#" data-hover>Privacy Pact</a></li>
+            <li><a href="#" data-hover>Studio fitting</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive toast notifications container -->
+  <div id="toast-alerts-container" style="position: fixed; bottom: 32px; left: 32px; z-index: 10000; display: flex; flex-direction: column; gap: 12px; pointer-events: none;"></div>
+
+  <script src="main.js?v=2.0"></script>
+</body>
+</html>

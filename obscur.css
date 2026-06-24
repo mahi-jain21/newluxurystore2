@@ -1,0 +1,799 @@
+/* ==========================================================================
+   OBSCUR LUXURY DESIGN SYSTEM (Loro Piana × Apple × Aesop)
+   ========================================================================== */
+
+:root {
+  --bg:           #080808;   /* Deep charcoal base */
+  --bg-surface:   #111111;   /* Card / Section surfaces */
+  --bg-raised:    #1C1C1C;   /* Borders, buttons, selections */
+  --text:         #F2EDE4;   /* Warm ivory */
+  --text-muted:   #888580;   /* Secondary descriptive text */
+  --text-hint:    #4A4845;   /* Labels, loading captions */
+  --gold:         #C8A96E;   /* Gold accent */
+  --gold-light:   #E8CEAA;   /* Hover gold tint */
+  --gold-shimmer: rgba(200, 169, 110, 0.10); /* Soft ambient reflection */
+  --border:       rgba(255, 255, 255, 0.06); /* Master borders */
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  
+  --space-xs:     8px;
+  --space-sm:     16px;
+  --space-md:     24px;
+  --space-lg:     40px;
+  --space-xl:     64px;
+  --space-xxl:    96px;
+  --space-huge:   140px;
+}
+
+/* Reset & Base Rules */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  cursor: none; /* Controlled by custom cursor dot/ring */
+}
+
+/* Custom Selection Highlight */
+::selection {
+  background-color: var(--gold-shimmer);
+  color: var(--text);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   1. LOADER SCREEN
+   ────────────────────────────────────────────────────────────────────────── */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  z-index: 9999;
+  transition: opacity 0.8s var(--ease-in);
+}
+
+#brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+#loader-bar-track {
+  width: 200px;
+  height: 1px;
+  background: var(--border);
+}
+
+#loader-bar-fill {
+  height: 1px;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.1s linear;
+}
+
+#loader-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-hint);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   2. NAVBAR
+   ────────────────────────────────────────────────────────────────────────── */
+#navbar {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0;
+  height: 64px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease,
+              backdrop-filter 0.4s ease,
+              border-color 0.4s ease;
+}
+
+#navbar.scrolled {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(8, 8, 8, 0.85);
+  border-color: var(--border);
+}
+
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: color 300ms ease;
+}
+
+.nav-cart:hover {
+  color: var(--gold);
+}
+
+.cart-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  color: var(--gold);
+  border: 1px solid rgba(200, 169, 110, 0.5);
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   3. SEQUENCE DISPLAY & STICKY VIEWS
+   ────────────────────────────────────────────────────────────────────────── */
+#sequence-section {
+  height: 600vh;
+  position: relative;
+}
+
+#sequence-sticky {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+#sequence-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  will-change: transform;
+}
+
+#scroll-progress-bar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 2px;
+  height: 0%;
+  background: var(--gold);
+  z-index: 100;
+  transition: height 0.05s linear;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   4. TEXT OVERLAYS AND BEATS
+   ────────────────────────────────────────────────────────────────────────── */
+#text-overlay-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.text-beat {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out),
+              transform 0.6s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.text-beat.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) !important;
+}
+
+.label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5.2vw, 84px);
+  font-weight: 200;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.body-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 360px;
+  margin-top: 20px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   5. CUSTOM CURSOR
+   ────────────────────────────────────────────────────────────────────────── */
+#cursor-dot {
+  position: fixed;
+  top: -3px; 
+  left: -3px;
+  width: 6px; 
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+#cursor-ring {
+  position: fixed;
+  top: -18px; 
+  left: -18px;
+  width: 36px; 
+  height: 36px;
+  border: 1px solid rgba(200, 169, 110, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+  transition: width 0.3s var(--ease-out), 
+              height 0.3s var(--ease-out),
+              top 0.3s var(--ease-out), 
+              left 0.3s var(--ease-out),
+              border-color 0.3s var(--ease-out);
+}
+
+#cursor-dot.expanded {
+  width: 10px; 
+  height: 10px;
+  top: -5px; 
+  left: -5px;
+}
+
+#cursor-ring.contracted {
+  width: 20px; 
+  height: 20px;
+  top: -10px; 
+  left: -10px;
+  border-color: var(--gold);
+}
+
+@media (pointer: coarse) {
+  #cursor-dot, #cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   6. PREMIUM BUTTONS
+   ────────────────────────────────────────────────────────────────────────── */
+.cta-primary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid rgba(200, 169, 110, 0.5);
+  padding: 16px 40px;
+  border-radius: 0;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease, transform 0.2s ease;
+  z-index: 1;
+}
+
+.cta-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease-out);
+  z-index: -1;
+}
+
+.cta-primary:hover::before { 
+  transform: translateX(0); 
+}
+
+.cta-primary:hover { 
+  color: #080808; 
+}
+
+.cta-primary:active { 
+  transform: scale(0.97); 
+}
+
+.cta-secondary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 16px 40px;
+  border-radius: 0;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease, border-color 0.4s ease, transform 0.2s ease;
+}
+
+.cta-secondary:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.cta-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   7. BELOW SCROLL SECTIONS (INTERSECTION OFFSETS)
+   ────────────────────────────────────────────────────────────────────────── */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(45px);
+  transition: opacity 900ms var(--ease-out),
+              transform 900ms var(--ease-out);
+}
+
+.reveal-section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SECTION A: PRODUCT DETAILS */
+#chapter-details {
+  background-color: var(--bg-surface);
+  padding: var(--space-huge) 48px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.details-image-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.details-img {
+  max-width: 85%;
+  height: auto;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.details-img:hover {
+  transform: scale(1.02);
+}
+
+.details-specs-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-weight: 200;
+  color: var(--text);
+  margin-bottom: var(--space-lg);
+}
+
+.spec-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.spec-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  max-width: 60%;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* SECTION B: THE STORY */
+#chapter-story {
+  padding: var(--space-huge) 48px;
+  background-color: var(--bg);
+}
+
+.story-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.story-quote-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.gold-indicator-line {
+  width: 1px;
+  height: var(--space-sm);
+  background-color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.story-pullquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.story-paragraphs {
+  max-width: 640px;
+}
+
+.body-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+/* SECTION C: MARQUEE STRIP */
+#chapter-specs {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding: var(--space-sm) 0;
+}
+
+.marquee-strip-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: infiniteScrollMarquee 35s linear infinite;
+  will-change: transform;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--text-muted);
+}
+
+.marquee-content .gold-separator {
+  color: var(--gold);
+  margin: 0 32px;
+  display: inline-block;
+}
+
+@keyframes infiniteScrollMarquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* SECTION D: ACQUIRE */
+#chapter-acquire {
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+  overflow: hidden;
+}
+
+.acquire-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+}
+
+.acquire-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 200;
+  color: var(--gold);
+  margin-top: 12px;
+  display: block;
+}
+
+/* Particle Field */
+.particles-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background-color: var(--gold);
+  border-radius: 50%;
+  opacity: 0.15;
+  will-change: transform, opacity;
+}
+
+.p1 { left: 10%; bottom: -5%; width: 3px; height: 3px; animation: floatParticle 18s infinite linear; }
+.p2 { left: 25%; bottom: -5%; width: 4px; height: 4px; animation: floatParticle 22s infinite linear; animation-delay: 2s; }
+.p3 { left: 40%; bottom: -5%; width: 2px; height: 2px; animation: floatParticle 15s infinite linear; animation-delay: 4s; }
+.p4 { left: 55%; bottom: -5%; width: 5px; height: 5px; animation: floatParticle 26s infinite linear; animation-delay: 1s; }
+.p5 { left: 70%; bottom: -5%; width: 3px; height: 3px; animation: floatParticle 20s infinite linear; animation-delay: 3s; }
+.p6 { left: 85%; bottom: -5%; width: 2px; height: 2px; animation: floatParticle 17s infinite linear; animation-delay: 5s; }
+.p7 { left: 15%; bottom: -5%; width: 4px; height: 4px; animation: floatParticle 24s infinite linear; animation-delay: 7s; }
+.p8 { left: 33%; bottom: -5%; width: 3px; height: 3px; animation: floatParticle 19s infinite linear; animation-delay: 1.5s; }
+.p9 { left: 48%; bottom: -5%; width: 5px; height: 5px; animation: floatParticle 28s infinite linear; animation-delay: 6s; }
+.p10 { left: 63%; bottom: -5%; width: 2px; height: 2px; animation: floatParticle 14s infinite linear; animation-delay: 8s; }
+.p11 { left: 78%; bottom: -5%; width: 4px; height: 4px; animation: floatParticle 23s infinite linear; animation-delay: 3.5s; }
+.p12 { left: 92%; bottom: -5%; width: 3px; height: 3px; animation: floatParticle 21s infinite linear; animation-delay: 9s; }
+.p13 { left: 5%; bottom: -5%; width: 2px; height: 2px; animation: floatParticle 16s infinite linear; animation-delay: 11s; }
+.p14 { left: 50%; bottom: -5%; width: 4px; height: 4px; animation: floatParticle 25s infinite linear; animation-delay: 10s; }
+.p15 { left: 88%; bottom: -5%; width: 3px; height: 3px; animation: floatParticle 20s infinite linear; animation-delay: 12s; }
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.15;
+  }
+  90% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   8. FOOTER
+   ────────────────────────────────────────────────────────────────────────── */
+#footer {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  padding: 48px 48px;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.footer-left .brand-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--text);
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+.footer-left .copyright {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  color: var(--text-hint);
+  letter-spacing: 0.05em;
+}
+
+.footer-right .footer-links {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+}
+
+.footer-right .footer-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.footer-right .footer-links a:hover {
+  color: var(--gold);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   9. INTERACTIVE ELEMENTS (TOAST ALERTS)
+   ────────────────────────────────────────────────────────────────────────── */
+.toast-alert {
+  background-color: rgba(17, 17, 17, 0.95);
+  border: 1px solid var(--gold);
+  padding: 12px var(--space-sm);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+}
+
+.toast-alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjust */
+@media (max-width: 992px) {
+  .details-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .details-image-block {
+    order: 2;
+  }
+  .details-specs-block {
+    order: 1;
+  }
+  #navbar {
+    padding: 0 24px;
+  }
+}
